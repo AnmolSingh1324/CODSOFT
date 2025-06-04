@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simple Movie Recommendation System</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif, Arial, sans-serif; /* Added fallback font */
+            background: url('img.gif') no-repeat center center fixed;
+            background-size: cover;
+            color: #eee;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background: #1f1f1f;
+            padding: 1rem 2rem;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: 0.1rem;
+            color: #00d8ff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+        }
+        main {
+            flex-grow: 1;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        h2 {
+            margin-bottom: 0.5rem;
+        }
+        .instructions {
+            margin-bottom: 1rem;
+            color: #bbb;
+        }
+        .preferences {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .preference-group {
+            background: #222;
+            border-radius: 10px;
+            padding: 1rem;
+            flex: 1 1 300px;
+            box-shadow: 0 3px 10px rgb(0 216 255 / 0.2);
+        }
+        label {
+            display: block;
+            margin: 0.3rem 0 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        select, button {
+            width: 100%;
+            padding: 0.5rem 0.7rem;
+            border-radius: 6px;
+            border: none;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+        select {
+            color: #222;
+        }
+        button {
+            background: #00d8ff;
+            color: #121212;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #00a5bf;
+        }
+        .recommendations {
+            margin-top: 1rem;
+        }
+        .movie-card {
+            background: #1f1f1f;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgb(0 216 255 / 0.2);
+            transition: transform 0.2s ease;
+        }
+        .movie-card:hover {
+            transform: scale(1.02);
+        }
+        .movie-title {
+            font-size: 1.3rem;
+            color: #00d8ff;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+        .movie-genres {
+            font-size: 0.9rem;
+            color: #8fdfff;
+            margin-bottom: 0.8rem;
+        }
+        .movie-desc {
+            font-size: 1rem;
+            color: #ddd;
+            line-height: 1.4;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #1f1f1f;
+            color: #555;
+            font-size: 0.9rem;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <header>Simple Movie Recommendation System</header>
+    <main>
+        <p class="instructions">Select your preferred genre and/or a movie you like, then get recommendations based on your selection.</p>
+        <section class="preferences">
+            <div class="preference-group">
+                <label for="genreSelect">Choose a Genre:</label>
+                <select id="genreSelect" aria-label="Select Genre">
+                    <option value="">-- Select Genre --</option>
+                    <option value="Action">Action</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Comedy">Comedy</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Sci-Fi">Sci-Fi</option>
+                    <option value="Thriller">Thriller</option>
+                </select>
+            </div>
+            <div class="preference-group">
+                <label for="movieSelect">Or select a movie you like:</label>
+                <select id="movieSelect" aria-label="Select Movie">
+                    <option value="">-- Select Movie --</option>
+                </select>
+            </div>
+        </section>
+        <button id="recommendBtn">Get Recommendations</button>
+        <section class="recommendations" id="recommendations"></section>
+    </main>
+    <footer>Made with AI Assistant By Anmol Singh</footer>
+
+    <script>
+        // Movie dataset
+        const movies = [
+            {id:1, title: "Inception", genres: ["Action", "Sci-Fi", "Thriller"], description: "A skilled thief leads a team to infiltrate dreams and steal secrets."},
+            {id:2, title: "The Shawshank Redemption", genres: ["Drama"], description: "Two imprisoned men bond over decades and find hope in harsh conditions."},
+            {id:3, title: "The Dark Knight", genres: ["Action", "Drama", "Thriller"], description: "Batman battles the Joker in Gotham City to restore order."},
+            {id:4, title: "Forrest Gump", genres: ["Drama", "Romance"], description: "A man with a low IQ recounts the extraordinary moments of his life."},
+            {id:5, title: "Interstellar", genres: ["Adventure", "Drama", "Sci-Fi"], description: "A team journeys through a wormhole to find a new home for humanity."},
+            {id:6, title: "The Matrix", genres: ["Action", "Sci-Fi"], description: "A hacker discovers the true nature of reality and fights machines."},
+            {id:7, title: "Get Out", genres: ["Horror", "Thriller"], description: "A young man uncovers unsettling secrets when visiting his girlfriend's family."},
+            {id:8, title: "The Lord of the Rings", genres: ["Adventure", "Fantasy"], description: "A hobbit sets out on a quest to destroy a powerful ring."},
+            {id:9, title: "Pulp Fiction", genres: ["Crime", "Drama"], description: "Interwoven tales of crime and redemption in Los Angeles."},
+            {id:10, title: "The Notebook", genres: ["Romance", "Drama"], description: "A romantic story of enduring love against the odds."},
+            {id:11, title: "Guardians of the Galaxy", genres: ["Action", "Adventure", "Sci-Fi"], description: "A ragtag group of space heroes band together to save the universe."},
+            {id:12, title: "The Conjuring", genres: ["Horror", "Thriller"], description: "Paranormal investigators help a family haunted by dark forces."},
+            {id:13, title: "Titanic", genres: ["Romance", "Drama"], description: "A love story unfolds aboard the doomed ocean liner."},
+            {id:14, title: "Guardians of the Galaxy Vol. 2", genres: ["Action", "Adventure", "Sci-Fi"], description: "The Guardians face new threats and unravel mysteries of family."},
+            {id:15, title: "Cruella", genres: ["Comedy", "Crime"], description: "The rebellious early days of fashion icon Cruella de Vil."}
+        ];
+
+        // Populate movie dropdown
+        const movieSelect = document.getElementById('movieSelect');
+        movies.forEach(movie => {
+            const option = document.createElement('option');
+            option.value = movie.id;
+            option.textContent = movie.title;
+            movieSelect.appendChild(option);
+        });
+
+        // Utility function: calculate similarity score between movies based on genre overlap
+        function genreSimilarity(movie1, movie2) {
+            const genres1 = movie1.genres;
+            const genres2 = movie2.genres;
+            const intersection = genres1.filter(genre => genres2.includes(genre));
+            return intersection.length;
+        }
+
+        // Recommendation logic
+        function recommend(selectedGenre, selectedMovieId) {
+            let recommendations = [];
+            if(selectedMovieId) {
+                // Find selected movie
+                const likedMovie = movies.find(m => m.id === parseInt(selectedMovieId));
+                if(!likedMovie) return [];
+                // Recommend movies with highest genre overlap excluding the liked movie itself
+                recommendations = movies
+                    .filter(m => m.id !== likedMovie.id)
+                    .map(m => ({movie: m, score: genreSimilarity(likedMovie, m)}))
+                    .filter(entry => entry.score > 0)
+                    .sort((a,b) => b.score - a.score)
+                    .map(entry => entry.movie);
+            } else if(selectedGenre) {
+                // Recommend movies that contain the selected genre
+                recommendations = movies.filter(m => m.genres.includes(selectedGenre));
+            }
+            return recommendations;
+        }
+
+        // Handle recommendations display
+        document.getElementById('recommendBtn').addEventListener('click', () => {
+            const genre = document.getElementById('genreSelect').value;
+            const movieId = document.getElementById('movieSelect').value;
+            const recommendationsContainer = document.getElementById('recommendations');
+
+            // Clear previous results
+            recommendationsContainer.innerHTML = '';
+
+            if(!genre && !movieId) {
+                recommendationsContainer.innerHTML = '<p style="color:#f55;">Please select a genre or a movie first to get recommendations.</p>';
+                return;
+            }
+
+            let recs = recommend(genre, movieId);
+
+            if(recs.length === 0) {
+                recommendationsContainer.innerHTML = '<p>No recommendations found based on your selection.</p>';
+                return;
+            }
+
+            recs.forEach(movie => {
+                const card = document.createElement('div');
+                card.className = 'movie-card';
+                card.innerHTML = `
+                    <div class="movie-title">${movie.title}</div>
+                    <div class="movie-genres">${movie.genres.join(', ')}</div>
+                    <div class="movie-desc">${movie.description}</div>
+                `;
+                recommendationsContainer.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>
