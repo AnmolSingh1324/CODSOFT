@@ -1,43 +1,45 @@
-# Tic-Tac-Toe AI - Unbeatable
+# CHATBOT WITH RULE-BASED RESPONSES
 
-A modern web-based Tic-Tac-Toe game featuring an unbeatable AI powered by the Minimax algorithm with alpha-beta pruning. Enjoy a clean, responsive interface and three difficulty levels to challenge your skills.
+## Project Overview
+This is an advanced rule-based chatbot implemented as a single HTML file. It uses predefined patterns to detect user intents and generates appropriate responses based on those intents. This chatbot offers a smooth, modern UI with vibrant gradients and blur effects over a visually appealing background.
 
 ## Features
+- Rule-based intent detection using regular expressions.
+- Handles greetings, time queries, weather inquiries, farewells, thanks, and mood expressions.
+- Personalized time-based greeting on first interaction.
+- Prevents repeated user input responses.
+- Modern and responsive chat interface with smooth scrolling.
+- Accessible with ARIA labels for usability.
 
-- Responsive and visually appealing UI with modern styling and background.
-- Play against an AI opponent with three difficulty settings:
-  - Easy: AI picks random moves.
-  - Medium: AI tries to win or block, else random move.
-  - Hard: AI uses full Minimax algorithm with alpha-beta pruning for unbeatable play.
-- Accessibility support with keyboard navigation and ARIA labels.
-- Game status updates dynamically for human or AI turns, win/loss, or draw.
-- Restart button to start a new game anytime.
-- Smooth hover and focus styles for better user experience.
-
-## How to Play
-
-1. Open the `TIC-TAC-TOE AI.html` file in your web browser.
-2. Select the difficulty level from the dropdown menu.
-3. Click on any empty cell to place your 'X'.
-4. The AI ('O') will make its move shortly after.
-5. The game will declare a winner or a draw automatically.
-6. Use the Restart Game button to start over.
+## How to Run
+1. Open the `chatbot.html` file in any modern web browser (Chrome, Firefox, Edge, Safari).
+2. Start chatting by typing messages into the input box and hitting the send button or pressing Enter.
+3. The chatbot will respond based on detected intent.
 
 ## Technologies Used
-
-- HTML5 for page structure.
-- CSS3 with custom properties for styling and responsive design.
-- Vanilla JavaScript implementing game logic and AI.
+- HTML5 with semantic elements.
+- CSS3 for styling with gradients, flexbox, and backdrop filters.
+- Vanilla JavaScript for chatbot logic and DOM manipulation.
 
 ## File Structure
+- `chatbot.html` — the complete chatbot application with inline CSS and JavaScript.
 
-- `TIC-TAC-TOE AI.html`: Single HTML file containing all HTML, CSS, and JavaScript code.
-- Supporting assets (e.g., `cat.gif.gif`) for background image.
+## Usage
+- Ask the chatbot greetings like "Hi" or "Hello".
+- Inquire about the current time with keywords like "time".
+- Say thank you to get polite responses.
+- Talk about feelings, weather, or ask general questions.
+- It will reply with predefined responses based on detected user intent.
+
+## Customization
+- Update responses in the JavaScript section under `this.responses` object.
+- Modify intent patterns inside the `detect_intent` method to add or change recognized intents.
 
 ## Author
-
-Created by Anmol Singh with AI Assistant support.
+Created by Anmol Singh.
 
 ## License
+This project is open for personal and educational use.
 
-This project is open source and available for any use.
+---
+Enjoy chatting with your advanced rule-based chatbot!
