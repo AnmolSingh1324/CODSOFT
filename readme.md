@@ -1,45 +1,95 @@
-# CHATBOT WITH RULE-BASED RESPONSES
+Image Captioning AI - Discord Style
 
-## Project Overview
-This is an advanced rule-based chatbot implemented as a single HTML file. It uses predefined patterns to detect user intents and generates appropriate responses based on those intents. This chatbot offers a smooth, modern UI with vibrant gradients and blur effects over a visually appealing background.
+This is a modern web application for generating concise captions for images using the power. The user interface is inspired by Discord's sleek and intuitive design, providing a seamless experience for uploading images and getting instant descriptions.
+Features
 
-## Features
-- Rule-based intent detection using regular expressions.
-- Handles greetings, time queries, weather inquiries, farewells, thanks, and mood expressions.
-- Personalized time-based greeting on first interaction.
-- Prevents repeated user input responses.
-- Modern and responsive chat interface with smooth scrolling.
-- Accessible with ARIA labels for usability.
+    Image Upload: Easily upload images via a file input or drag-and-drop functionality.
 
-## How to Run
-1. Open the `chatbot.html` file in any modern web browser (Chrome, Firefox, Edge, Safari).
-2. Start chatting by typing messages into the input box and hitting the send button or pressing Enter.
-3. The chatbot will respond based on detected intent.
+    Live Preview: See a preview of your selected image before generating a caption.
 
-## Technologies Used
-- HTML5 with semantic elements.
-- CSS3 for styling with gradients, flexbox, and backdrop filters.
-- Vanilla JavaScript for chatbot logic and DOM manipulation.
+    AI-Powered Captioning: Utilizes the Gemini API for advanced image understanding and caption generation.
 
-## File Structure
-- `chatbot.html` — the complete chatbot application with inline CSS and JavaScript.
+    Responsive Design: Optimized for a smooth experience across various devices (desktop, tablet, mobile).
 
-## Usage
-- Ask the chatbot greetings like "Hi" or "Hello".
-- Inquire about the current time with keywords like "time".
-- Say thank you to get polite responses.
-- Talk about feelings, weather, or ask general questions.
-- It will reply with predefined responses based on detected user intent.
+    Discord-Inspired UI: A visually appealing interface with a dark theme, subtle gradients, and modern button styles.
 
-## Customization
-- Update responses in the JavaScript section under `this.responses` object.
-- Modify intent patterns inside the `detect_intent` method to add or change recognized intents.
+    Loading Indicator: Provides visual feedback while the AI is generating a caption.
 
-## Author
-Created by Anmol Singh.
+    Custom Message Box: User-friendly alerts for errors or important information.
 
-## License
-This project is open for personal and educational use.
+    Keyboard Shortcuts:
 
----
-Enjoy chatting with your advanced rule-based chatbot!
+        Ctrl + U (or Cmd + U on Mac): Upload image.
+
+        Ctrl + Enter (or Cmd + Enter on Mac): Generate caption.
+
+        Escape: Clear the current image.
+
+Technologies Used
+
+    HTML5: Structure of the web application.
+
+    CSS3: Custom styling to achieve the Discord-like aesthetic, including gradients, shadows, and responsive adjustments.
+
+    Tailwind CSS: A utility-first CSS framework for rapid UI development and responsive design.
+
+    JavaScript (ES6+): Powers the application's logic, UI interactions, and API calls.
+
+    TensorFlow.js (CDN): Included in the project, suggesting potential for client-side machine learning models in the future, though currently the Gemini API handles the core captioning.
+
+How to Use
+
+    Open the Application: Open the IMAGE CAPTIONING.html file in your web browser.
+
+    Upload an Image:
+
+        Click the "📸 Upload Image for Advanced Analysis" button.
+
+        Alternatively, drag and drop an image file directly into the "Supports JPG, PNG, GIF • Maximum accuracy with high-resolution images" section.
+
+    Preview: The selected image will appear in the "Image Preview" area.
+
+    Generate Caption: Click the "Generate Caption" button. A loading spinner will appear while the AI processes the image.
+
+    View Caption: Once generated, the caption will be displayed under "Generated Caption:".
+
+    Clear Image: Click the "Clear Image" button to remove the current image and reset the application.
+
+Project Structure
+
+The project is a single HTML file (IMAGE CAPTIONING.html) containing all the HTML, CSS, and JavaScript.
+
+    <head>: Contains meta information, title, TensorFlow.js and Tailwind CSS CDN links, and Google Fonts import.
+
+    <style>: Custom CSS rules for the Discord-like theme and responsive adjustments.
+
+    <body>:
+
+        Main container for the application UI.
+
+        Image upload section with drag-and-drop support.
+
+        Image preview area.
+
+        Control buttons (Generate Caption, Clear Image).
+
+        Loading indicator.
+
+        Output area for the generated caption.
+
+        Custom message box for alerts.
+
+        Footer with project information.
+
+
+Development Notes
+
+    The application uses FileReader to convert uploaded images to Base64.
+
+    Error handling is implemented for API calls and invalid file types, displaying user-friendly messages.
+
+    The apiKey for the Gemini API is currently hardcoded as an empty string, assuming it will be provided by the Canvas environment at runtime. If running outside this environment, you would need to insert your actual API key.
+
+    Performance monitoring features (FPS, memory usage) were present in the original code but have been removed in the current version.
+
+Developed with ❤️ by ANMOL SINGH
